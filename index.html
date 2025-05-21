@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Hawat | Full-Stack Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    :root {
+      --dark-bg: #0a0a12;
+      --dark-secondary: #161622;
+      --neon-primary: #00f7ff;
+      --neon-secondary: #7b61ff;
+      --text-primary: #e0e0ff;
+      --text-secondary: #a0a0c0;
+      --transition-fast: 0.2s ease-in;
+      --transition-normal: 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Space Grotesk", sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-primary);
+      padding-top: 80px;
+      line-height: 1.8;
+    }
+
+    /* Ensure navbar always on top */
+    .navbar {
+      z-index: 1000;
+    }
+
+    .section {
+      position: relative;
+      scroll-margin-top: 90px;
+    }
+
+    /* Buttons */
+    .btn-neon {
+      background: var(--neon-primary);
+      color: var(--dark-bg);
+      border: none;
+      box-shadow: 0 0 10px var(--neon-primary);
+      transition: box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn-neon:hover {
+      box-shadow: 0 0 20px var(--neon-primary), 0 0 30px var(--neon-secondary);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline-neon {
+      color: var(--neon-primary);
+      border: 2px solid var(--neon-primary);
+      background: transparent;
+      transition: background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn-outline-neon:hover {
+      background: var(--neon-primary);
+      color: var(--dark-bg);
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background: rgba(22, 22, 34, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(123, 97, 255, 0.1);
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(100%);
+    }
+
+    .navbar-brand {
+      font-family: "JetBrains Mono", monospace;
+      color: var(--neon-primary) !important;
+      position: relative;
+      transition: color var(--transition-fast);
+    }
+
+    .navbar-brand:hover {
+      color: var(--neon-secondary) !important;
+    }
+
+    .navbar-brand::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--neon-primary);
+      transform: scaleX(0);
+      transition: transform var(--transition-normal);
+    }
+
+    .navbar-brand:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-link {
+      color: var(--text-secondary) !important;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--neon-primary) !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 12rem 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg,
+          var(--dark-secondary) 0%,
+          var(--dark-bg) 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: var(--neon-secondary);
+      opacity: 0.2;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::before {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: -150px;
+    }
+
+    .hero::after {
+      width: 200px;
+      height: 200px;
+      bottom: 20%;
+      right: -100px;
+      animation-duration: 8s;
+    }
+
+    .profile-image {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 3px solid var(--neon-primary);
+      box-shadow: 0 0 40px rgba(0, 247, 255, 0.2);
+      transition: transform var(--transition-normal);
+      background: url("images/Michael .jpg") center/cover;
+      margin: 0 auto 2rem;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: "JetBrains Mono", monospace;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 3px;
+      background: var(--neon-secondary);
+      margin: 0.5rem auto 0;
+    }
+
+    /* Cards */
+    .skill-card,
+    .project-card,
+    .contact-card {
+      background: var(--dark-secondary);
+      border-radius: 15px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-normal),
+        box-shadow var(--transition-normal);
+    }
+
+    .skill-card {
+      text-align: center;
+    }
+
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg,
+          var(--neon-primary),
+          var(--neon-secondary),
+          var(--neon-primary));
+      z-index: -1;
+      animation: gradient-pulse 4s linear infinite;
+      background-size: 400% 400%;
+    }
+
+    .project-card:hover,
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .tech-badge {
+      background: rgba(123, 97, 255, 0.1);
+      color: var(--neon-secondary);
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    /* Animations */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes gradient-pulse {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-secondary);
+    }
+
+    .social-icon {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .social-icon:hover {
+      color: var(--neon-primary);
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 8rem 1rem;
+      }
+
+      .profile-image {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top" data-aos="fade-down">
+    <div class="container">
+      <a class="navbar-brand" href="#">Michael Hawat</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#education">Education</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero text-center" data-aos="zoom-in">
+    <div class="container">
+      <div class="profile-image" data-aos="fade-in">  </div>
+      <h1 class="display-4 fw-bold mb-3">Michael Hawat</h1>
+      <p class="lead mb-4">Computer Science Student</p>
+      <div class="d-flex gap-3 justify-content-center">
+        <a href="#projects" class="btn btn-neon btn-lg px-4 py-2" data-aos="fade-right" data-aos-delay="200"><i
+            class="fas fa-code me-2"></i>View Projects</a>
+        <a href="#contact" class="btn btn-outline-neon btn-lg px-4 py-2" data-aos="fade-left" data-aos-delay="200"><i
+            class="fas fa-paper-plane me-2"></i>Contact Me</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="section py-5" data-aos="fade-up">
+    <div class="container text-center">
+      <h2 class="section-title mb-5">About Me</h2>
+      <p class="lead mx-auto" style="max-width: 600px">
+        Passionate Computer Science student specializing in full-stack development and algorithm optimization.
+        I write clean, maintainable code and design efficient algorithms to solve real-world problems.
+        Currently expanding my expertise in cloud technologies and system design while building impactful, scalable
+        applications.
+      </p>
+    </div>
+  </section>
+
+  <section id="education" class="section py-5 bg-dark-secondary" data-aos="fade-up" data-aos-delay="150">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Education</h2>
+      <div class="row g-4 justify-content-center">
+        <!-- School Education -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="skill-card">
+            <i class="fas fa-school fa-3x mb-3"></i>
+            <h4>Elementary School</h4>
+            <p class="text-secondary mb-1">Notre damme de Balamand - Balamand</p>
+            <p class="text-secondary">GPA: 16.7/20</p>
+            <small class="text-muted">2008-2020</small>
+          </div>
+        </div>
+
+        <!-- High School -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="skill-card">
+            <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+            <h4>High School</h4>
+            <p class="text-secondary mb-1">École Officielle Secondaire - Kfarhata</p>
+            <p class="text-secondary">Lebanese Baccalaureate - General Science</p>
+            <p class="text-secondary">GPA: 15/20</p>
+            <small class="text-muted">2020-2023</small>
+          </div>
+        </div>
+
+        <!-- University -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="skill-card">
+            <i class="fas fa-university fa-3x mb-3"></i>
+            <h4>University</h4>
+            <p class="text-secondary mb-1">University of Balamand</p>
+            <p class="text-secondary">BS in Computer Science</p>
+            <p class="text-secondary">GPA: 3.5/4.0</p>
+            <small class="text-muted">2024-Present</small>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section py-5 bg-dark-secondary" data-aos="fade-up" data-aos-delay="100">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Technical Skills</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" data-aos="flip-left">
+          <div class="skill-card">
+            <i class="fab fa-java fa-3x mb-3"></i>
+            <h4>Java</h4>
+            <p class="text-secondary">
+              OOP, Algorithms ,  Desktop Applications
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="100">
+          <div class="skill-card">
+            <i class="fab fa-js-square fa-3x mb-3"></i>
+            <h4>JavaScript</h4>
+            <p class="text-secondary">Node.js, Express, Web APIs ,
+              full stack web development
+
+            </p>
+            </p>
+
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="200">
+          <div class="skill-card">
+            <i class="fas fa-database fa-3x mb-3"></i>
+            <h4>Databases</h4>
+            <p class="text-secondary">
+              SQL, MariaDB, mySql, Database Design
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="300">
+          <div class="skill-card">
+            <i class="fab fa-cuttlefish fa-3x mb-3"></i>
+            <h4>C++</h4>
+            <p class="text-secondary">
+              Data Structures,  Memory Management
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="200">
+          <div class="skill-card">
+            <i class="fab fa-html5 fa-3x mb-3"></i>
+            <h4>HTML5</h4>
+            <p class="text-secondary">Semantic Markup, Forms, Accessibility</p>
+          </div>
+        </div>
+      
+        <!-- CSS3 -->
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="300">
+          <div class="skill-card">
+            <i class="fab fa-css3-alt fa-3x mb-3"></i>
+            <h4>CSS3</h4>
+            <p class="text-secondary">Flexbox, Grid, Animations , Responsive</p>
+          </div>
+        </div>
+      
+        <!-- Bootstrap -->
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="400">
+          <div class="skill-card">
+            <i class="fab fa-bootstrap fa-3x mb-3"></i>
+            <h4>Bootstrap</h4>
+            <p class="text-secondary">Grid System, Components, Utilities</p>
+          </div>
+        </div>
+      
+        <!-- EJS -->
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="500">
+          <div class="skill-card">
+            <i class="fas fa-code fa-3x mb-3"></i>
+            <h4>EJS</h4>
+            <p class="text-secondary">Templating, Partials, Data Binding</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="flip-left" data-aos-delay="400">
+          <div class="skill-card">
+            <i class="fab fa-github fa-3x mb-3"></i>
+            <h4>Git & GitHub</h4>
+            <p class="text-secondary">
+              Version Control, Collaboration, CI/CD Pipelines
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section py-5" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Featured Projects</h2>
+      <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-up">
+          <div class="project-card">
+            <div class="d-flex justify-content-between mb-3">
+              <h3>Pet Shop</h3>
+              <div class="d-flex gap-2">
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">SQL</span>
+                
+                <span class="tech-badge">EJS</span>
+                
+              </div>
+            </div>
+            <p class="text-secondary">
+             Developed a full-stack  Pet Shop website using 
+             JavaScript , NodeJs, HTML,CSS,EJS,
+             including pet grooming, boarding, and product sales.
+            </p>
+            <a href="https://github.com/michaelhawat/Pet-Shop" class="btn btn-outline-neon mt-3"
+              target="_blank"><i class="fab fa-github me-2"></i>Source Code</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-card">
+            <div class="d-flex justify-content-between mb-3">
+              <h3>Airline Management System</h3>
+              <div class="d-flex gap-2">
+                <span class="tech-badge">Java</span>
+                <span class="tech-badge">OOP</span>
+
+              </div>
+            </div>
+            <p class="text-secondary">
+              Comprehensive airline management system with seat allocation
+              algorithms, ticket management, and data persistence features.
+            </p>
+            <a href="https://github.com/michaelhawat/Airline-Management-System" class="btn btn-outline-neon mt-3"
+              target="_blank"><i class="fab fa-github me-2"></i>Source Code</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="project-card">
+            <div class="d-flex justify-content-between mb-3">
+              <h3>Portfolio Website</h3>
+              <div class="d-flex gap-2">
+                <span class="tech-badge">HTML</span>
+                <span class="tech-badge">CSS</span>
+                <span class="tech-badge">JavaScript</span>
+                </div>
+                </div>
+                <p class="text-secondary">
+                  Personal portfolio website showcasing projects, skills, and
+                  contact information. Built with HTML, CSS, and JavaScript.
+                </p>
+                <a href="#" class="btn btn-outline-neon mt-3"
+                  target="_blank"><i class="fab fa-github me-2"></i>Source Code</a>
+                  </div>
+                  </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section py-5 bg-dark-secondary" data-aos="fade-up" data-aos-delay="300">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Get in Touch</h2>
+      <div class="row justify-content-center g-4">
+
+        <!-- Email Card -->
+        <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="contact-card text-center p-4 rounded shadow-sm">
+            <i class="fas fa-envelope fa-3x mb-3"></i>
+            <h4>Email</h4>
+            <a href="michael.hawat@std.balamand.edu.lb" class="d-block text-neon fw-bold"
+              aria-label="Send an email to Miled Issa">
+              Email Me
+            </a>
+          </div>
+        </div>
+
+        <!-- LinkedIn Card -->
+        <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-card text-center p-4 rounded shadow-sm">
+            <i class="fab fa-linkedin fa-3x mb-3"></i>
+            <h4>LinkedIn</h4>
+            <a href="https://www.linkedin.com/in/michael-hawat-93304a356" class="d-block text-neon fw-bold" target="_blank"
+              rel="noopener" aria-label="View Michael Hawat's LinkedIn profile">
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- GitHub Card -->
+        <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="contact-card text-center p-4 rounded shadow-sm">
+            <i class="fab fa-github fa-3x mb-3"></i>
+            <h4>GitHub</h4>
+            <a href="https://github.com/michaelhawat" class="d-block text-neon fw-bold" target="_blank" rel="noopener"
+              aria-label="View Michael Hawat's GitHub repositories">
+              Explore My GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="py-4 text-center">
+    <div class="container">
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="michael.hawat@std.balamand.edu.lb" class="social-icon" aria-label="Send an email to Michael Hawat">
+          <i class="fas fa-envelope fa-lg"></i>
+        </a>
+        <a href="https://wa.me/96171227103" class="social-icon" aria-label="Send a WhatsApp message to Michael Hawat">
+          <i class="fab fa-whatsapp fa-lg"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/michael-hawat-93304a356" class="social-icon" target="_blank" rel="noopener"
+          aria-label="View Michael Hawat's LinkedIn profile">
+          <i class="fab fa-linkedin fa-lg"></i>
+        </a>
+        <a href="https://github.com/michaelhawat" class="social-icon" target="_blank" rel="noopener"
+          aria-label="View Michael Hawat’s GitHub repositories">
+          <i class="fab fa-github fa-lg"></i>
+        </a>
+      </div>
+      <p class="text-secondary mb-0">
+        &copy; <span id="year"></span> Michael Hawat. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="btn btn-neon position-fixed" style="bottom: 20px; right: 20px; display: none">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    const btn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) btn.style.display = "block";
+      else btn.style.display = "none";
+    });
+    btn.addEventListener("click", () =>
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    );
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
